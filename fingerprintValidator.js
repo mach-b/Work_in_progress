@@ -1,8 +1,15 @@
-// Created 21-4-2014 8:00am - 12:00pm
-// User Story 2
+//  User Story 2:
+//  "As Adam, when I visit a website for the second+ time I want the fingerprint to be compared"
+//  Author: Mark B
+//  Date: 16-4-2014
+//  Version 1.0 :  16-4-14 : Created
+//  Version 1.1 :  21-4-14 : Modified, created fingerprint variable. 
 
-
-
+/**
+ * HOURS SPENT:
+ * 16-4-14 - 1 hour.  *Need to get an understanding of the context of how to use JavaScript.
+ * 21-4-2014 - 4 hours.  *Still need to improve understanding of Javascript, no testing done.
+ */
 
 var fingerprintString;
 var urlString;
@@ -71,7 +78,7 @@ var fingerprintsMatch;
                 }  
             }
             
-            // Check fingerprintStrings match.
+            // Check fingerprintStrings match, if URLs match.
             if (fingerprintsMatch) {
                 for (var i = 0; i < candidateFingerprint.fingerprintString.length; i++) {
                     if (this.candidateFingerprint.fingerprintString.charAt[i]==
@@ -81,13 +88,13 @@ var fingerprintsMatch;
                         fingerprintsMatch = false;
                     }
                     if (fingerprintsMatch == false) {
-                        break;
+                        break; // fingerprints do not match.
                     }
                 }
             }
         }else {
-            fingerprintsMatch = false;  // ???
-            // Check fingerprintStrings are equal length.
+            fingerprintsMatch = false;
+            // Check fingerprintStrings are equal length, this may not be needed, as fingerprints can't match.
             if ((this.candidateFingerprint.fingerprintString.length ==
             this.referenceFingerprint.fingerprintString.length)) {
 //TODO          // return urlStrings don't match, they differ in length.
