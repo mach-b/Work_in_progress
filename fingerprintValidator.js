@@ -9,6 +9,14 @@
  * HOURS SPENT:
  * 16-4-14 - 1 hour.  *Need to get an understanding of the context of how to use JavaScript.
  * 21-4-2014 - 4 hours.  *Still need to improve understanding of Javascript, no testing done.
+ *
+ * Total Hours: 5
+ */
+
+/**
+ * NOTES:
+ * (24-4-14) - Probably need to refer to fingerprints as JSON objects.  Could prototype a JSON structure.
+ *
  */
 
 var fingerprintString;
