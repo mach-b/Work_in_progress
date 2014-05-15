@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+    
+    <head>
+        <meta charset="utf-8">
+        <title>Title</title>
+    
+        <style>
+            p {
+                color: red;
+            }
+            h1, h2 {
+                font-family: sans-serif;
+                color: yellow;
+            }
+        </style>
+        
+    </head>
+    
+    <body>
+        <h1>
+        Heading
+        </h1>
+        <p>
+        Hi, testing.
+        </p>
+    
+        <script>
+        var a = 2;
+        var b = a;
+        var c = 3;
+        var jsonA = {"a": "A", "b": "B"};
+        var jsonB = {"a": "A", "b": "B"};
+        var jsonC = {"b": "B", "a": "A"};
+        var jsonD = jsonC;
+        var stringA = JSON.stringify(jsonA);
+        var stringB = JSON.stringify(jsonB);
+        var stringC = JSON.stringify(jsonC);
+        console.log("a + b = "+ (a+b));
+        console.log(a === b);
+        console.log(a === c);
+        console.log("Compare JSONs A & B, same variables and values:"+(jsonA === jsonB));
+        console.log(jsonA === jsonB);   
+        console.log(jsonB === jsonC);
+        console.log(jsonD === jsonC);
+        console.log("Strings A and B equal? "+(stringA === stringB));
+        console.log("Strings A and C equal? "+(stringA === stringC));
+        </script>
+    </body>
+
+</html>

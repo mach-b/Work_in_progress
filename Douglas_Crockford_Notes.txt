@@ -1,0 +1,200 @@
+
+'function':Declare all variables at the start of a function.  'Hoisting' means variables declared Anywhere within a function are visible for the entire function.  Variables are not just visable for the 'block' they are declared in like say in Java, they are visible within the scope of the entire function they appear in.
+
+'return': Every function in JS returns a value.  Return statement allows function to return early. If you don't declare what it returns it will return the 'undefined' value.  Or if the function is a constructor it returns 'this', the object you are constructing.  Do not include a linebreak between return, and the value to be returned.
+
+'arguments': When a function isw invoked, in addition to it's parameters, it also gets a special parameter called 'arguments'.  It contains all the arguments from it's invokation. It is an array-like object.  'arguments.length' is the number of arguments passed.  Treating as read only structure is recommended.
+EXAMPLE:
+function sum() {
+    var i,
+        n = arguments.length,
+        total = 0;
+    for (i = 0; i < n; i += 1) {
+    total += arguments[i];
+    }
+    return total;
+}
+
+var ten = sum(1, 2, 3, 4);
+
+*then in 5th edition agruments is more array-like than before... 
+(now inherits from array.prototype)
+
+function sum() {
+    return arguments
+            .reduce(function (a, b)) {
+        return a + b;
+    }, 0);
+}
+
+var ten = sum(1, 2, 3, 4);
+
+'this': 
+
+Invocation:  Too many arguments, no problem will ignore.  Too few arguments, no problem, will fill in with undefined.  No type checking.
+
+LOL... var that = this;  Solves the problem where inner functions wanting to refer to the outer function object.  An inner function does not get access to the outer this.
+
+subroutines:
+code reuse, decomposition, modularity, expressiveness, higher order.
+
+recursion: fortran cannot do.
+
+Closure:  Lexical scoping, static scoping  28:00 approx
+
+Weird > 'scoping, inner functions contain all variables of parent functions, even after parent function is closed' ???
+
+e.g. ...
+var digit_name = (function () (
+    var names = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+    return function (n) { return names[n];};
+    } ());
+alert(digit_name(3));  // 'three'
+
+and...
+function fade(id) {
+    var dom = document.getElementById(id),  each call of fade has these variables assigned, multiple calls will not interfer with each other.
+        level = 1;
+    function step() {
+        var h = level.toString(16);
+        dom.style.backgroundColor = '#FFFF' + h + h;
+        if (level <15) {
+            level += 1;  // increases the parent level variable
+            setTimeout(step, 100);
+        }
+    }
+    setTimeout(step, 100);
+}
+
+and, Sealer/Unsealer...
+function make_sealer() {
+    var boxes = [], values = [];
+    
+    return {
+        sealer: function (value) {
+            var i = boxes.length,
+                box = {};
+            boxes[i] = box;
+            values[i] = value;
+            return box;
+        },
+        unsealer: function (box) {
+            return values[boxes.indexOf(box)];
+        };
+    };
+}
+
+Inheritance:
+
+
+AJAX-
+
+lol, Ajax 1596
+
+RUNOFF > GML 
+Brian Reid's Scribe inspired/influenced: SGML, LATEX
+
+DOM: Brendan Eich influenced by book on HyperCard
+iFrame
+
+BROWSER:
+URL > fetch > CACHE > parse > TREE > flow > DISPLAY_LIST > paint > PIXELS
+
+MODERN BROWSER:
+...Event > Script > Flow > Paint > Event > Script > Flow...
+
+<script></script>
+
+src=URL
+    Highly recommended.
+    Don't put code on pages. (if you can help it)
+
+document.write
+    Allows JavaScript to produce HTMLtext.
+    Before onload: Inserts HTMLtext into the document.
+    After onload: Uses HTML text to replace the current document.
+    Not recommended.
+    
+<script></script>
+    Script files can have a big impact on page loading time.
+    1. Place <script src> tags as close to the bottom of the body as possible.*
+    (Also place CSS <link> as high in the head as possible)
+    2. Minify and gzip script files.
+    3. Reduce the number of script files as much as possible.
+*browser stops parsing HTML until script has run, no images will load until it is finished etc.
+
+Body_______________________
+  |                        |
+  H1______P_______H2_______P
+  |       |        |       |
+Text    Text     Text     Text
+
+Walking the DOM
+    Using recursion, follow the firstChild node,
+    and then the nextSibling nodes.
+    
+function walkTheDOM(node, func) {
+    func(node);
+    node = node.firstChild;
+    while (node) {
+        walkTheDOM(node, func);
+        node = node.nextSibling;
+    }
+}
+
+getElementsByClassName
+
+function getElementByClassName(className) {
+    var results = [];
+    walkTheDOM(document.body, function (node) {
+        var a, c = node.className, i;
+        if (c) {
+            a = c.split(' ');
+            for(i = 0; i < a.length; i += 1) {
+                if (a[i] === className) {
+                    results.push(node);
+                    break;
+                }
+            }
+        }
+    });
+    return results;
+}
+
+RETRIEVING NODES
+
+document.getElementById(id)
+document.getElementByName(name)
+node.getElementByTagName(tagName)
+
+Manipulating Elements:
+node.property = expression;
+
+Old School-
+if (my_image.complete) {
+    my_image.src = superurl;
+}
+
+New School-
+if (my_image.getAttribute('complete')) {
+    my_image.setAttribute('src', superurl);
+}
+
+Making Elements:
+document.createElement(tagName)
+document.createTextNode(text)
+node.cloneNode() // Clone an individual element
+node.cloneNode(true) // Clone an element and all of it's descendents
+*the new nodes are not connected to the document
+
+Speed Tracer [on Chrome to measure performance]
+
+
+
+
+
+
+
+
+
+
