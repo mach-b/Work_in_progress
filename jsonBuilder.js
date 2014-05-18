@@ -22,14 +22,15 @@
  */
 function insertValueIntoJSON(json, key, value) {
 	// JSON object passed by reference, return boolean indicating success.
+	console.log("Key = "+key+ ", Value = "+value);
 
 	// is key valid? (is it a String?)
-	if (!( key instanceof String) || !(typeof key == "string")) {
+	if (!(typeof key == "string")) { // **!(key instanceof String) ||  THIS IS STRANGE, WHY DOES THIS NOT WORK!!
 		console.log("Insertion failed, Key is not a String.")  // TODO Remove once tested and approved?
 		return false;
 	}
 	// is value valid?  (is it SHA265?)
-	if (!( value instanceof String) || !(typeof value == "string")) {  // Could also check length and valid characters, but is it worth it?
+	if (!(typeof value == "string")) {  // Could also check length and valid characters, but is it worth it?  **!( value instanceof String) || 
 		console.log("Insertion failed, Value is not a String.")  // TODO Remove once tested and approved?
 		return false;
 	}
@@ -45,12 +46,11 @@ function insertValueIntoJSON(json, key, value) {
 			// Will convert existing entry to reference Array and insert that entry as the first value.
 			return addValueToArray(json, key, value);
 		}
-
 	} else {
 		// Key does not already exist.
-		return json[key] = value;
-	}// Is key present?
-	
+		json[key] = value;
+		return true;
+	}// Is key present
 }
 
 /**
@@ -79,9 +79,11 @@ function addValueToArray(json, key, value) {// Could omit paramaters, but makes 
 	if (json[key] instanceof Array) {
 		console.log("Key references an Array, pushing object.");  // TODO Remove once tested and approved?
 		//var obj = {key: value};  // Create JSON to push to Array.
-		json.key.push[ {
-			key : value
-		}];  // How bad is it using the same key for the array as well as in the array contents?  Seems pretty dodgy...
+		var obj = {};
+		obj[key] = value;  // THIS is wrong... 
+		json[key].push(obj);  // How bad is it using the same key for the array as well as in the array contents?  Seems pretty dodgy...
+		
+		console.log("Key refers to Array = "+(json[key] instanceof Array));
 		return true;
 		// JSONlint says it's valid format, hopefully that means it's OK.
 	}
@@ -97,6 +99,7 @@ function addValueToArray(json, key, value) {// Could omit paramaters, but makes 
  * @return {boolean}  indicating yes or no.
  */
 function doesKeyReferToArray(json, key) {
+	console.log("Key refers to Array = "+(json[key] instanceof Array));
 	return (json[key] instanceof Array);
 }
 
@@ -109,12 +112,18 @@ function doesKeyReferToArray(json, key) {
 function convertKeyToObjectArray(json, key) {
 	if (!(json[key] instanceof Array)) {
 		console.log("Converting Key to reference Array");  // TODO Remove once tested and approved?
-		json[key] = [{
-			key : json[key]
-		}];
+		var obj = {};
+		obj[key] = json[key];
+		json[key] = new Array(obj)// [{key : json[key]}]; 
+		console.log("First element = "+JSON.stringify(json[key]));
 		// ??? This simple? Lets hope so, don't let me down now JS!
 		return true
 	}
 	console.log("Failed, Key already references an Array.");  // TODO Remove once tested and approved?
 	return false;
 }
+
+
+
+
+
