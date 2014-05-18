@@ -2,7 +2,7 @@
 "html": "123456html",
 "head": "123456head",
 "body": "123456body",
-"scriptList": [
+"script": [						
 	{"script": "123456script1"},
 	{"script": "123456script2"}
 ]
