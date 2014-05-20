@@ -80,7 +80,7 @@ function addValueToArray(json, key, value) {// Could omit paramaters, but makes 
 		console.log("Key references an Array, pushing object.");  // TODO Remove once tested and approved?
 		//var obj = {key: value};  // Create JSON to push to Array.
 		var obj = {};
-		obj[key] = value;  // THIS is wrong... 
+		obj[key] = value;  
 		json[key].push(obj);  // How bad is it using the same key for the array as well as in the array contents?  Seems pretty dodgy...
 		
 		console.log("Key refers to Array = "+(json[key] instanceof Array));
